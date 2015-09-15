@@ -1,0 +1,239 @@
+@import "global-style";
+
+body{
+	overflow: hidden;
+}
+
+#map {
+	position:absolute;
+	top:50px;
+	height: calc(100% - 50px);
+	left: 0;
+	width: 70%;
+}
+
+.SUI_SCREEN_HEADER_NAV_BUTTON.home-button{
+	font-size: 16px;
+}
+
+.SUI_SCREEN_HEADER_NAV_BUTTON.home-button:hover{
+	border-bottom: 4px solid #FFFFFF;
+	color: $COLOR_HIGHLIGHT_NORMAL;
+	//padding-top: 3px; 
+}
+
+#content{
+	position: absolute;
+	top: 60px;
+	height: calc(100% - 50px);
+	left: 70%;
+	width: 30%;
+	overflow: auto;
+}
+
+#venues{
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.venues-title{
+	width: 100%;
+	height: 40px;
+	font-size: 20px;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-bottom: 10px;
+}
+
+.venue{
+	width: 100%;
+	padding: 10px;
+	padding-right: 15px;
+	padding-left: 15px;
+	background-color: $SUI_COLOR_GRAPESODA_6;
+	border-radius: 2px;
+}
+
+.venue-title{
+	width: 100%;
+	font-size: 16px;
+	font-family: 'GothamHTFMedium';
+}
+
+.venue-content{
+	margin-top: 5px;
+	margin-bottom: 0px;
+	position: relative;
+}
+
+.venue-options.SUI_OPTIONS{
+	width: 70%;
+}
+
+.venue-add.SUI_PRIMARY_BUTTON{
+	width: calc(30% - 30px);
+	position: absolute;
+	top: 0;
+	text-align: center;
+	right: 0px;
+}
+
+#itinerary{
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-top: 10px;
+}
+
+#itinerary-title{
+	width: 100%;
+	height: 40px;
+	font-size: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 10px;
+}
+
+#itinerary-content{
+	width: 100%;
+}
+
+.itinerary-header{
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: $SUI_COLOR_PURPLERAVEN_6;
+}
+
+.itinerary-selector{
+	border-radius: 16px;
+	height: 32px;
+	width: 32px;
+	font-size: 16px;
+	text-align: center;
+	display: block;
+	float: left;
+	margin-right: 5px;
+}
+
+.itinerary-content-content{
+	width: 100%;
+	padding-top: 10px;
+}
+
+.content-section{
+	width: 100%;
+	margin-bottom: 5px;
+	border: $SUI_BORDER;
+	border-radius: 2px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+}
+
+.content-section-header{
+	width: 100%;
+	font-size: 16px;
+	height: 24px;
+}
+
+.content-section-body{
+	width: 100%;
+	font-size: 14px;
+	position: relative;
+}
+
+.content-section-text{
+	height: 30px;
+	font-family: "GothamHTFMedium";
+}
+
+
+.content-section-deletebutton{
+	background-color: $SUI_COLOR_MATERIALGREY_400;
+	height: 16px;
+	width: 16px;
+	font-size: 8px;
+	border-radius: 8px;
+	color: #FFFFFF;
+	text-align: center;
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.content-section-deletebutton:hover{
+	background-color: $SUI_COLOR_MRSROBINSON_1;	
+}
+
+#itinerary-footer{
+	width: 100%;
+	position: relative;
+	text-align: left;
+}
+
+.itinerary-footer-sharebutton.SUI_PRIMARY_BUTTON{
+	text-align: center;
+	border-radius: 2px;
+	width: 47.5%;
+	display: inline-block;
+}
+
+.itinerary-footer-sharebutton.SUI_PRIMARY_BUTTON:hover{
+}
+
+.itinerary-footer-deletebutton.SUI_PRIMARY_BUTTON{
+	background-color: $SUI_COLOR_MATERIALGREY_400;
+	text-align: center;
+	border-radius: 2px;
+	width: 47.5%;
+	display: inline-block;
+	float: right;
+}
+
+.itinerary-footer-deletebutton.SUI_PRIMARY_BUTTON:hover{
+	background-color: $SUI_COLOR_MRSROBINSON_1;
+}
+
+
+@media (max-width: 960px){
+	body{
+		overflow: auto;
+	}
+	#map {
+		width: 100%;
+		height: 400px;
+		top: 50px;
+		}
+	#content{
+		top: 470px;
+		width: 100%;
+		height: auto;
+		left: 0px;
+		right: 0px;
+	}
+	#venues{
+		left: 0px;
+		width: 50%;
+		top: 0px;
+	}
+
+	#itinerary{
+		position: absolute;
+		left: 50%;
+		width: 50%;
+		top: 0px;
+		margin-top: 0px;
+	}
+
+}
+
+.shady-text{
+	color: $SUI_COLOR_GRAPESODA_5;
+}

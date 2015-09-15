@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Tells the browser what the title of this page should be. -->
+  <title>Trip Planner</title>
+  <script src="/js/jquery-1.11.3.min.js"></script>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <link href="/css/icons/style.css" rel="stylesheet" type="text/css">
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
+  <script src="/js/vendor/icheck.js"></script>
+  <link href="/css/vendor/icheck/SUI.css" rel="stylesheet">
+  <meta name="description" content="Trip Planner app for FSA">
+  <meta name="author" content="Geng">
+  <meta name="viewport" content="width=device-width">
+<style>
+</style>
+</head>
+<body>
+
+<!--   <div>Restaurant</div>
+{% for restaurant in restaurants %}
+  <div>{{restaurant.name}}</div>
+{% endfor %} -->
+
+
+  <div class="SUI_SCREEN_HEADER">
+    <div class="SUI_SCREEN_HEADER_NAV">
+      <div class="SUI_SCREEN_HEADER_NAV_INNER">
+        <a href="/">
+          <button id="home_button" class="SUI_SCREEN_HEADER_NAV_BUTTON home-button">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                <span class = "icon-location"></span> Trip Planner
+              </div>
+            </div>
+          </button>
+        </a>
+        <a href="/">
+          <button id="photos_photos" class="SUI_SCREEN_HEADER_NAV_BUTTON ACTIVE_SCREEN_OPTION">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                Home
+              </div>
+            </div>
+          </button>
+        </a>
+        <a href="/">
+          <button id="photos_photos" class="SUI_SCREEN_HEADER_NAV_BUTTON">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                About
+              </div>
+            </div>
+          </button>
+        </a>
+        <a href="/">
+          <button id="photos_albums" class="SUI_SCREEN_HEADER_NAV_BUTTON">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                Contact
+              </div>
+            </div>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div id='map'></div>
+  <div id="content">
+    <div id="venues">
+      <div class="venues-title">
+        <div class="SUI_VA_TEXTWRAPPER">
+          <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+          <span class="icon-planning"></span> Options
+          </div>
+        </div>
+      </div>
+      {% for venues in data %}
+      <div class="venue">
+        <div class="venue-title">
+          <div class="SUI_VA_TEXTWRAPPER">
+            <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+            {{venues.type}}
+            </div>
+          </div>
+        </div>
+        <div class="venue-content" venueType = '{{venues.type}}'>
+          <div class ="venue-options SUI_OPTIONS">
+            <button id = "TICKETBODY_RIGHT_Status_Button" class = "SUI_OPTIONS_BUTTON">
+              <div class="SUI_VA_TEXTWRAPPER">
+                <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT SUI_OPTIONS_BUTTON_TEXT">
+                  Pick an option
+                </div>
+                <div class="SUI_OPTIONS_BUTTON_ICON icon-down-open"></div>
+              </div>
+            </button>
+            <div class = "SUI_OPTIONS_DROPDOWN">
+            {% for venue in venues.content %}
+              <div class = "SUI_OPTIONS_DROPDOWN_OPTION" venueId = '{{venue.id}}' venueType = '{{venues.type}}'>
+                <div class="SUI_VA_TEXTWRAPPER">
+                  <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                    {{venue.name}}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+          <button class="venue-add SUI_PRIMARY_BUTTON">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+              Add
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div id="itinerary" currentIndex>
+      <div id="itinerary-title">
+        <div class="SUI_VA_TEXTWRAPPER">
+          <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+          <span class="icon-map-big"></span> Your Trip
+          </div>
+        </div>
+      </div>
+      <div id="itinerary-content">
+        <div class="itinerary-header">
+            <div class="SUI_VA_TEXTWRAPPER">
+              <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+                <span style = "float: left; margin-right: 10px; line-height: 32px; font-size: 20px;">Day</span>
+                <button id = 'day-adder' class="itinerary-selector SUI_PRIMARY_BUTTON icon-plus2" style="float:right">
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div id="itinerary-footer">
+        <div class="itinerary-footer-sharebutton SUI_PRIMARY_BUTTON">
+          <div class="SUI_VA_TEXTWRAPPER">
+            <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+            Share with friends <span class="icon-share2"></span> 
+            </div>
+          </div>
+        </div>
+        <div class="itinerary-footer-deletebutton SUI_PRIMARY_BUTTON">
+          <div class="SUI_VA_TEXTWRAPPER">
+            <div class="SUI_VAMIDDLE_TEXTWRAPPER_INNERTEXT">
+            Skip this day <span class="icon-trash"></span> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/global-layout.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

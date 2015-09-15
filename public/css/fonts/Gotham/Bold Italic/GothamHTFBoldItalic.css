@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'GothamHTFBoldItalic';
+    src: url('fonts/GothamHTFBoldItalic.eot');
+    src: url('fonts/GothamHTFBoldItalic.eot') format('embedded-opentype'),
+         url('fonts/GothamHTFBoldItalic.woff2') format('woff2'),
+         url('fonts/GothamHTFBoldItalic.woff') format('woff'),
+         url('fonts/GothamHTFBoldItalic.ttf') format('truetype'),
+         url('fonts/GothamHTFBoldItalic.svg#GothamHTFBoldItalic') format('svg');
+}
