@@ -12,6 +12,7 @@ function Day(){
 	this.Hotels = [];
 	this.Restaurants = [];
 	this.Activities = [];
+	this.data = null;
 }
 
 Day.prototype.makeCurrent = function(){
@@ -28,7 +29,7 @@ Day.prototype.add = function(typeName,venueId){
 			return false
 		}
 	}
-	this[typeName].push(venueLookup(venueData[typeName].content,venueId))
+	this[typeName].push(venueLookup(venueData[typeName].content,venueId));
 }
 
 Day.prototype.delete = function(typeName,venueId){
@@ -46,14 +47,85 @@ function Itinerary(){
 	this.days = [];
 }
 
-Itinerary.prototype.add = function(){
+function displayDay(dayId){
+	$.ajax({
+		method: "GET",
+		url: "/api/getDay/"+dayId
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function deleteDay(dayId){
+	$.ajax({
+		method: "DELETE",
+		url: "/api/deleteDay/"+dayId
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function updateDay(dayId, venue, venueIds){
+	console.log('day id', dayId);
+	console.log('venue', venue);
+	console.log(JSON.stringify(venueIds));
+	$.ajax({
+		method: "POST",
+		url: "/api/addtoDay/"+dayId+"/"+venue+"/",
+		data:JSON.stringify(venueIds),
+		contentType:"application/json"
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+Day.prototype.add = function(typeName,venueId){
+	for(var i =0; i<this[typeName].length; i++){
+		if (this[typeName][i]._id==venueId){
+			return false
+		}
+	}
+	this[typeName].push(venueLookup(venueData[typeName].content,venueId));
+	var venueIds = {data:[]};
+	for (var i = 0; i<this[typeName].length; i++){
+		venueIds.data.push(this[typeName][i]._id);
+	}
+	console.log(venueIds);
+	var serverVarKey = {
+		Hotels:'hotel',
+		Restaurants: 'restaurants',
+		Activities: 'activities'
+	}
+	console.log(serverVarKey[typeName]);
+	updateDay(this.data._id,serverVarKey[typeName],venueIds);
+}
+
+
+
+function addDay(day){
+	$.ajax({
+		method: "POST",
+		url: "/api/newDay/"+day
+	}).done(function(data){
+		console.log(data);
+		myItinerary.add(data);
+		myItinerary.render();
+		// return data;
+	});
+}
+
+Itinerary.prototype.add = function(data){
 	var newDay = new Day();
+	newDay.data = data;
 	if(currentDay){
 		currentDay.nonCurrent();
 	}
 	newDay.makeCurrent();
 	this.days.push(newDay);
 	currentDay = newDay;
+
 }
 
 Itinerary.prototype.delete = function(){
@@ -62,6 +134,7 @@ Itinerary.prototype.delete = function(){
 		if (Days[i].currentDay){
 			console.log(currentDay);
 			if(Days.length>1){
+				deleteDay(Days[i].data._id);
 				Days.splice(i, 1);
 				currentDay = Days[Math.max(0,i-1)];
 				currentDay.makeCurrent();
@@ -215,59 +288,6 @@ function Marker(state, venue, venueType){
 }(jQuery));
 
 
-function addDay(day){
-	$.ajax({
-		method: "POST",
-		url: "/api/newDay/"+day
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
-
-function displayDay(dayId){
-	$.ajax({
-		method: "GET",
-		url: "/api/getDay/"+dayId
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
-
-function deleteDay(dayId){
-	$.ajax({
-		method: "DELETE",
-		url: "/api/deleteDay/"+dayId
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
-
-function addToDay(dayId,venue, venueId){
-	$.ajax({
-		method: "POST",
-		url: "/api/addtoDay/"+dayId+"/"+venue+"/"+venueId
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
-
-function updateDay(dayId,venue, venueIds){
-	console.log(JSON.stringify(venueIds));
-	$.ajax({
-		method: "POST",
-		url: "/api/addtoDay/"+dayId+"/"+venue+"/",
-		data:JSON.stringify(venueIds),
-		contentType:"application/json"
-	}).done(function(data){
-		console.log(data);
-	});
-}
-
-
 
 function venueLookup(venues, id){
 	for(var i=0; i<venues.length; i++){
@@ -299,8 +319,8 @@ $("body").on("click", ".content-section-deletebutton", function(e){
 });
 
 $("body").on("click", "#day-adder", function(e){
-	myItinerary.add();
-	myItinerary.render();
+	// myItinerary.add();
+	addDay(1);
 });
 
 $("body").on("click", ".day-selector", function(e){
@@ -335,8 +355,6 @@ myLayer.on('click', function(e) {
 $(document).ready(function(){
 	$('#day-adder').click();
 })
-
-
 
 
 

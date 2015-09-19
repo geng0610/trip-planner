@@ -5,6 +5,7 @@
 
   <!-- Tells the browser what the title of this page should be. -->
   <title>Trip Planner</title>
+  <script src="/js/vendor/angular.js"></script>
   <script src="/js/jquery-1.11.3.min.js"></script>
   <link href="/css/style.css" rel="stylesheet" type="text/css">
   <link href="/css/icons/style.css" rel="stylesheet" type="text/css">
@@ -19,14 +20,9 @@
 <style>
 </style>
 </head>
+<script src="/js/tripPlannerApp.js"></script>
+<!-- <body ng-app="tripPlanner" ng-controller="tripPlannerAppController as tripPlanner"> -->
 <body>
-
-<!--   <div>Restaurant</div>
-{% for restaurant in restaurants %}
-  <div>{{restaurant.name}}</div>
-{% endfor %} -->
-
-
   <div class="SUI_SCREEN_HEADER">
     <div class="SUI_SCREEN_HEADER_NAV">
       <div class="SUI_SCREEN_HEADER_NAV_INNER">
@@ -80,6 +76,7 @@
         </div>
       </div>
       {% for venues in data %}
+
       <div class="venue">
         <div class="venue-title">
           <div class="SUI_VA_TEXTWRAPPER">
@@ -120,6 +117,7 @@
         </div>
       </div>
       {% endfor %}
+      <!-- {% raw %}{{tripPlanner.venueData}}{% endraw %} -->
     </div>
     <div id="itinerary" currentIndex>
       <div id="itinerary-title">
