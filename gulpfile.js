@@ -34,6 +34,7 @@ gulp.task('express', function() {
 
 	// parse application/x-www-form-urlencoded
 	app.use(bodyParser.urlencoded({ extended: false }))
+	app.use(bodyParser.json());
 
 	// Set up a server
 	app.use('/', routes(io));
@@ -41,7 +42,6 @@ gulp.task('express', function() {
 	app.use('/bower_components', express.static('bower_components'));
 
 	app.use(morgan('dev'));
-	app.use(bodyParser.urlencoded({ extended: false }));
 	app.engine('html', swig.renderFile);
 	app.set('view engine', 'html');
 	app.set('views', process.cwd() + '/views');

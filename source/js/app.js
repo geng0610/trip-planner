@@ -150,7 +150,7 @@ Itinerary.prototype.render=function(){
 			var venue = venues[i];
 			var markerState = false;
 
-			console.log(venue._id, currentMarkerId);
+			// console.log(venue._id, currentMarkerId);
 			if(venue._id == currentMarkerId){
 				markerState = 'mouseSelected';
 			}
@@ -206,22 +206,66 @@ function Marker(state, venue, venueType){
 	$(document).ready(function(){
 		$.ajax({
 			method: "GET",
-			url: "http://localhost:3000/api/"
+			url: "/api/venues"
 		}).done(function(data){
 			venueData = data;
 			myItinerary.render();
-			// for (var element in venueData){
-			// 	var venues = venueData[element].content;
-			// 	var venueType = venueData[element].type;
-			// 	for(var i=0; i<venues.length;i++){
-			// 		var venue = venues[i];
-			// 		markers.push(Marker(false,venue,venueType));
-			// 	}
-			// }
-			// myLayer.setGeoJSON(markers);
 		});
 	});
 }(jQuery));
+
+
+function addDay(day){
+	$.ajax({
+		method: "POST",
+		url: "/api/newDay/"+day
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function displayDay(dayId){
+	$.ajax({
+		method: "GET",
+		url: "/api/getDay/"+dayId
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function deleteDay(dayId){
+	$.ajax({
+		method: "DELETE",
+		url: "/api/deleteDay/"+dayId
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function addToDay(dayId,venue, venueId){
+	$.ajax({
+		method: "POST",
+		url: "/api/addtoDay/"+dayId+"/"+venue+"/"+venueId
+	}).done(function(data){
+		console.log(data);
+	});
+}
+
+
+function updateDay(dayId,venue, venueIds){
+	console.log(JSON.stringify(venueIds));
+	$.ajax({
+		method: "POST",
+		url: "/api/addtoDay/"+dayId+"/"+venue+"/",
+		data:JSON.stringify(venueIds),
+		contentType:"application/json"
+	}).done(function(data){
+		console.log(data);
+	});
+}
 
 
 
